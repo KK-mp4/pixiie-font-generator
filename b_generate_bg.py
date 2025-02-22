@@ -23,7 +23,7 @@ def generate_pattern(X: int, Y: int, N: int, M: int) -> None:
                 fill=rectangle_color
             )
 
-    folder_path = f"./assets/fonts/{X}x{Y}/"
+    folder_path = f"./output/{X}x{Y}/"
     makedirs(folder_path, exist_ok=True)
     image.save(f"{folder_path}background.png")
 
@@ -36,7 +36,7 @@ def yal_settings(X: int, Y: int) -> None:
     data["font-name"] = font_name
     data["font-desc"] = "Smallest possible font for ASCII characters"
 
-    with open(f"./assets/fonts/{X}x{Y}/{font_name} settings.json", "w", encoding="utf-8") as f:
+    with open(f"./output/{X}x{Y}/{font_name} settings.json", "w", encoding="utf-8") as f:
         dump(data, f, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":

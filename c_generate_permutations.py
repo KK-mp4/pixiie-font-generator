@@ -1,6 +1,7 @@
-import math
-import random
-import colorsys
+from math import ceil, sqrt
+from random import uniform
+from colorsys import hls_to_rgb
+from os import makedirs
 from PIL import Image
 from typing import Tuple
 
@@ -11,8 +12,8 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
 
     total_permutations: int = 2 ** (X * Y)
 
-    grid_cols: int = math.ceil(math.sqrt(total_permutations))
-    grid_rows: int = math.ceil(math.sqrt(total_permutations))
+    grid_cols: int = ceil(sqrt(total_permutations))
+    grid_rows: int = ceil(sqrt(total_permutations))
 
     spacing: int = 1
     background_color: str = "#1f1f1f"
@@ -35,11 +36,11 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
         y_offset: int = spacing + row * (Y + spacing)
 
         # Generate a random light color based on HSL:
-        random_hue: float = random.uniform(0, 360)
+        random_hue: float = uniform(0, 360)
         saturation: float = 0.83
         lightness: float = 0.70
         # colorsys uses HLS order with hue in [0,1]
-        r_float, g_float, b_float = colorsys.hls_to_rgb(random_hue / 360.0, lightness, saturation)
+        r_float, g_float, b_float = hls_to_rgb(random_hue / 360.0, lightness, saturation)
         rgb_color: Tuple[int, int, int] = (int(r_float * 255), int(g_float * 255), int(b_float * 255))
 
         # Create a binary string representation of the permutation, padded with zeros
@@ -62,7 +63,8 @@ if __name__ == "__main__":
     X: int = 2 # Width of one cell
     Y: int = 4 # Height of one cell
 
-    output_path: str = f"./assets/fonts/{X}x{Y}/"
+    output_path: str = f"./output/{X}x{Y}/"
+    makedirs(output_path, exist_ok=True)
 
     if X * Y > 16:
         print("Warning: the number of permutations is huge and this may take a very long time to run.")
