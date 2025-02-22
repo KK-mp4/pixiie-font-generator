@@ -3,10 +3,13 @@
 ## How to use
 ```bash
 # Calculate character frequencies
-python character_frequencies.py
+python a_character_frequencies.py
 
 # Generate background and YAL settings file
-python generate_bg.py
+python b_generate_bg.py
+
+# Generate all permutations of binary pixels
+python c_generate_permutations.py
 ```
 
 ## License
