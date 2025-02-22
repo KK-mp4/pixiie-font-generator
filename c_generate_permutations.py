@@ -5,6 +5,7 @@ from os import makedirs
 from PIL import Image
 from typing import Tuple
 
+
 def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
     """
     Generates an image containing all 2^(X*Y) permutations of a bitmap with dimensions X×Y
@@ -22,11 +23,15 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
     final_height: int = grid_rows * Y + (grid_rows + 1) * spacing
 
     if final_width > 4096 or final_height > 4096:
-        print("Error: final image dimensions are too big, if you want to proceed remove this threshold in code.")
+        print(
+            "Error: final image dimensions are too big, if you want to proceed remove this threshold in code."
+        )
         return
 
     print(f"Generating image with dimensions {final_width} x {final_height} pixels...")
-    final_image: Image.Image = Image.new("RGB", (final_width, final_height), background_color)
+    final_image: Image.Image = Image.new(
+        "RGB", (final_width, final_height), background_color
+    )
 
     for perm in range(total_permutations):
         # Determine block position in the grid
@@ -40,17 +45,23 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
         saturation: float = 0.83
         lightness: float = 0.70
         # colorsys uses HLS order with hue in [0,1]
-        r_float, g_float, b_float = hls_to_rgb(random_hue / 360.0, lightness, saturation)
-        rgb_color: Tuple[int, int, int] = (int(r_float * 255), int(g_float * 255), int(b_float * 255))
+        r_float, g_float, b_float = hls_to_rgb(
+            random_hue / 360.0, lightness, saturation
+        )
+        rgb_color: Tuple[int, int, int] = (
+            int(r_float * 255),
+            int(g_float * 255),
+            int(b_float * 255),
+        )
 
         # Create a binary string representation of the permutation, padded with zeros
-        bin_str: str = format(perm, f'0{X * Y}b')
+        bin_str: str = format(perm, f"0{X * Y}b")
 
         # Draw the bitmap for this permutation.
         for y in range(Y):
             for x in range(X):
                 bit_index: int = y * X + x
-                if bin_str[bit_index] == '1':
+                if bin_str[bit_index] == "1":
                     final_image.putpixel((x_offset + x, y_offset + y), rgb_color)
                 else:
                     # Black pixel remains black.
@@ -59,14 +70,17 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
     final_image.save(f"{output_path}permutations.png", "PNG")
     print(f"Image saved as '{output_path}permutations.png'")
 
+
 if __name__ == "__main__":
-    X: int = 2 # Width of one cell
-    Y: int = 4 # Height of one cell
+    X: int = 2  # Width of one cell
+    Y: int = 4  # Height of one cell
 
     output_path: str = f"./output/{X}x{Y}/"
     makedirs(output_path, exist_ok=True)
 
     if X * Y > 16:
-        print("Warning: the number of permutations is huge and this may take a very long time to run.")
+        print(
+            "Warning: the number of permutations is huge and this may take a very long time to run."
+        )
 
     generate_bitmap_permutations(X, Y, output_path)

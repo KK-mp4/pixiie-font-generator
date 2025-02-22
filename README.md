@@ -10,6 +10,9 @@ python b_generate_bg.py
 
 # Generate all permutations of binary pixels
 python c_generate_permutations.py
+
+# Generate the font bitmap
+python d_wfc.py
 ```
 
 ## License
