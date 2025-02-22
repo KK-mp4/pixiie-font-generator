@@ -2,7 +2,7 @@ import os
 from collections import Counter
 
 
-def frequency_analysis(input_path, output_path, start_unicode_dec, end_unicode_dec):
+def frequency_analysis(input_path: str, output_path: str, start_unicode_dec: int, end_unicode_dec: int) -> None:
     if not os.path.exists(input_path):
         print(f"Error: The file {input_path} does not exist.")
         return
@@ -31,9 +31,9 @@ def frequency_analysis(input_path, output_path, start_unicode_dec, end_unicode_d
         print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    eng_input_file = "./assets/t8.shakespeare.txt"
-    rus_input_file = "./assets/война_и_мир.txt"
-    output_file = "./assets/character_frequencies.txt"
+    eng_input_file = "./assets/characters/t8.shakespeare.txt"
+    rus_input_file = "./assets/characters/война_и_мир.txt"
+    output_file = "./assets/characters/character_frequencies.txt"
 
     if os.path.exists(output_file):
         os.remove(output_file)
