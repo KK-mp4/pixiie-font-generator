@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
     character_frequencies_path: str = "./assets/characters/character_frequencies.txt"
     char_map_img_path: str = f"./output/{X}x{Y}/{config.CHAR_MAP_IMG_NAME}"
-    output_bitmap_path: str = f"./output/{X}x{Y}/PixIIe {X}x{Y} Monospace bitmap.png"
+    output_bitmap_path: str = f"./output/{X}x{Y}/Pixiie {X}x{Y} Monospace bitmap.png"
 
     symbols = read_symbols(character_frequencies_path)
 

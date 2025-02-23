@@ -31,7 +31,7 @@ def generate_pattern(X: int, Y: int, N: int, M: int) -> None:
 
 
 def yal_settings(X: int, Y: int) -> None:
-    font_name = f"PixIIe {X}x{Y} Monospace"
+    font_name = f"Pixiie {X}x{Y} Monospace"
 
     with open("./assets/yal_settings.json", "r", encoding="utf-8") as f:
         data = load(f)
@@ -40,7 +40,7 @@ def yal_settings(X: int, Y: int) -> None:
     data["font-desc"] = config.FONT_DESC
 
     # "smart" produces smaller TTF file, but does not support shapes within shapes
-    if X >= 5 or Y >= 5:
+    if X >= 5 and Y >= 5:
         data["contour-type"] = "pixel"
     else:
         data["contour-type"] = "smart"
