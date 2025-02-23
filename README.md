@@ -83,5 +83,21 @@ python d_wfc.py
 
 4. Use [pangrams](https://en.wikipedia.org/wiki/Pangram) (short sentences that contain every letter of the alphabet at least once) to preview font.
 
+## Results
+Current progress on the Pixiie 2x4 Monospace:
+```json
+{
+  " !\"#$%&'()*+,-./",
+  "0123456789:;<=>?",
+  "@ABCDEFGHIJKLMNO",
+  "PQRSTUVWXYZ[\\]^_",
+  "`abcdefghijklmno",
+  "pqrstuvwxyz{|}~∎"
+}
+```
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/31300ccb-812c-4389-ada5-3a1ecd3cef1e" alt="PixIIe 2x4 Monospace">
+</p>
+
 ## License
 This program is licensed under the MIT License. Please read the License file to know about the usage terms and conditions.
