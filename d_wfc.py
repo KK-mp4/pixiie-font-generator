@@ -1,5 +1,6 @@
 from typing import List, Dict, Set
 from PIL import Image, ImageDraw
+import config
 
 
 def read_symbols(file_path: str) -> List[Dict[str, List[int]]]:
@@ -110,7 +111,7 @@ def draw_bitmaps(
     img_width = symbols_per_row * (rect_width + 1) + 1
     img_height = num_rows * (rect_height + 1) + 1
 
-    img = Image.new("RGB", (img_width, img_height), "#1f1f1f")
+    img = Image.new("RGB", (img_width, img_height), config.BG_COLOR)
     draw = ImageDraw.Draw(img)
 
     for index, symbol in enumerate(ordered_symbols):
@@ -136,12 +137,12 @@ def draw_bitmaps(
 
 
 if __name__ == "__main__":
-    X: int = 2  # Width of one cell
-    Y: int = 4  # Height of one cell
+    X: int = config.GLYPH_WIDTH
+    Y: int = config.GLYPH_HEIGHT
 
     character_frequencies_path: str = "./assets/characters/character_frequencies.txt"
-    char_map_img_path: str = f"./output/{X}x{Y}/char_map.png"
-    output_bitmap_path: str = f"./output/{X}x{Y}/Pixiie {X}x{Y} Monospace bitmap.png"
+    char_map_img_path: str = f"./output/{X}x{Y}/{config.CHAR_MAP_IMG_NAME}"
+    output_bitmap_path: str = f"./output/{X}x{Y}/PixIIe {X}x{Y} Monospace bitmap.png"
 
     symbols = read_symbols(character_frequencies_path)
 

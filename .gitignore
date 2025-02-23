@@ -1,3 +1,4 @@
 /.vscode
 /assets/characters/character_frequencies.txt
 /output
+/__pycache__

@@ -2,16 +2,16 @@ from os import makedirs, path
 from sys import exit
 from json import load, dump
 from PIL import Image, ImageDraw
+import config
 
 
 def generate_pattern(X: int, Y: int, N: int, M: int) -> None:
-    background_color = "#1f1f1f"
     rectangle_color = "#000000"
 
     width = N * X + (N - 1) + 2
     height = M * Y + (M - 1) + 2
 
-    image = Image.new("RGB", (width, height), background_color)
+    image = Image.new("RGB", (width, height), config.BG_COLOR)
     draw = ImageDraw.Draw(image)
 
     for row in range(M):
@@ -31,13 +31,19 @@ def generate_pattern(X: int, Y: int, N: int, M: int) -> None:
 
 
 def yal_settings(X: int, Y: int) -> None:
-    font_name = f"Pixiie {X}x{Y} Monospace"
+    font_name = f"PixIIe {X}x{Y} Monospace"
 
     with open("./assets/yal_settings.json", "r", encoding="utf-8") as f:
         data = load(f)
 
     data["font-name"] = font_name
-    data["font-desc"] = "Smallest possible font for ASCII characters"
+    data["font-desc"] = config.FONT_DESC
+
+    # "smart" produces smaller TTF file, but does not support shapes within shapes
+    if X >= 5 or Y >= 5:
+        data["contour-type"] = "pixel"
+    else:
+        data["contour-type"] = "smart"
 
     with open(
         f"./output/{X}x{Y}/{font_name} settings.json", "w", encoding="utf-8"
@@ -54,9 +60,9 @@ def count_lines(file_path: str) -> int | None:
 
 
 if __name__ == "__main__":
-    X = 2  # Width of one cell
-    Y = 4  # Height of one cell
-    N = 9  # Number of cells in the horizontal direction
+    X = config.GLYPH_WIDTH
+    Y = config.GLYPH_HEIGHT
+    N = config.BG_COLUMNS
     M = count_lines("./assets/characters/character_frequencies.txt")
 
     if M is None:

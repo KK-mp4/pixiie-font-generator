@@ -1,5 +1,6 @@
 import os
 from collections import Counter
+import config
 
 
 def frequency_analysis(
@@ -38,8 +39,8 @@ def frequency_analysis(
 
 
 if __name__ == "__main__":
-    eng_input_file = "./assets/characters/t8.shakespeare.txt"
-    rus_input_file = "./assets/characters/война_и_мир.txt"
+    eng_input_file_path = f"./assets/characters/{config.ENG_INPUT_FILE_NAME}"
+    ru_input_file_path = f"./assets/characters/{config.RU_INPUT_FILE_NAME}"
     output_file = "./assets/characters/character_frequencies.txt"
 
     if os.path.exists(output_file):
@@ -50,13 +51,13 @@ if __name__ == "__main__":
         for num in range(0, 10):
             file.write(f"{num}\n")
 
-    frequency_analysis(eng_input_file, output_file, 65, 90)
+    frequency_analysis(eng_input_file_path, output_file, 65, 90)
 
     extra_chars = "!\"#$%&'()*+,-./:;<=>?@[\]^_`{|}~∎"
     with open(output_file, "a", encoding="utf-8") as file:
         for char in extra_chars:
             file.write(f"{char}\n")
 
-    frequency_analysis(rus_input_file, output_file, 1040, 1071)
+    frequency_analysis(ru_input_file_path, output_file, 1040, 1071)
 
     print(f"Character frequencies successfully written to {output_file}")

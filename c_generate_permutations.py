@@ -4,6 +4,7 @@ from colorsys import hls_to_rgb
 from os import makedirs
 from PIL import Image
 from typing import Tuple
+import config
 
 
 def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
@@ -17,7 +18,6 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
     grid_rows: int = ceil(sqrt(total_permutations))
 
     spacing: int = 1
-    background_color: str = "#1f1f1f"
 
     final_width: int = grid_cols * X + (grid_cols + 1) * spacing
     final_height: int = grid_rows * Y + (grid_rows + 1) * spacing
@@ -30,7 +30,7 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
 
     print(f"Generating image with dimensions {final_width} x {final_height} pixels...")
     final_image: Image.Image = Image.new(
-        "RGB", (final_width, final_height), background_color
+        "RGB", (final_width, final_height), config.BG_COLOR
     )
 
     for perm in range(total_permutations):
@@ -72,8 +72,8 @@ def generate_bitmap_permutations(X: int, Y: int, output_path: str) -> None:
 
 
 if __name__ == "__main__":
-    X: int = 2  # Width of one cell
-    Y: int = 4  # Height of one cell
+    X: int = config.GLYPH_WIDTH
+    Y: int = config.GLYPH_HEIGHT
 
     output_path: str = f"./output/{X}x{Y}/"
     makedirs(output_path, exist_ok=True)
