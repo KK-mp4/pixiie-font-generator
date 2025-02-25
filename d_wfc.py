@@ -58,7 +58,7 @@ def extract_bitmaps(
             symbol_entry["bitmaps"] = bitmaps
 
     except FileNotFoundError:
-        print(f"Error: The image file {image_path} was not found.")
+        print(f"Error: the image file {image_path} was not found.")
     except Exception as e:
         print(f"An error occurred: {e}")
 
