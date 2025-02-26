@@ -87,16 +87,23 @@ python d_wfc.py
 Current progress on the Pixiie 2x4 Monospace:
 ```json
 {
-  " !\"#$%&'()*+,-./",
-  "0123456789:;<=>?",
-  "@ABCDEFGHIJKLMNO",
-  "PQRSTUVWXYZ[\\]^_",
-  "`abcdefghijklmno",
-  "pqrstuvwxyz{|}~∎"
+  "glyphs": [
+    " !\"#$%&'()*+,-./",
+    "0123456789:;<=>?",
+    "@ABCDEFGHIJKLMNO",
+    "PQRSTUVWXYZ[\\]^_",
+    "`abcdefghijklmno",
+    "pqrstuvwxyz{|}~∎",
+    "АБВГДЕЁЖЗИЙКЛМНО",
+    "ПРСТУФХЦЧШЩЪЫЬЭЮ",
+    "Яабвгдеёжзийклмн",
+    "опрстуфхцчшщъыьэ",
+    "юя"
+  ]
 }
 ```
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/31300ccb-812c-4389-ada5-3a1ecd3cef1e" alt="PixIIe 2x4 Monospace">
+  <img src="https://github.com/user-attachments/assets/ea7a2888-6bef-4207-ab50-8011fd65a393" alt="PixIIe 2x4 Monospace">
 </p>
 
 ## License
