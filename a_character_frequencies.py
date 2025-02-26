@@ -30,9 +30,17 @@ def frequency_analysis(
                 if char.isprintable():
                     file.write(f"{char}\n")
 
+            # Add missing "Ё", since it is not in the dataset
+            if start_unicode_dec == 1040:
+                file.write(f"Ё\n")
+
             for char, _ in sorted_counts:
                 if char.isprintable():
                     file.write(f"{char.lower()}\n")
+
+            # Add missing "Ё", since it is not in the dataset
+            if start_unicode_dec == 1040:
+                file.write(f"ё\n")
 
     except Exception as e:
         print(f"An error occurred: {e}")
