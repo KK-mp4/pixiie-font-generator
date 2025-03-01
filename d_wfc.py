@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw
 import config
 
 
-def read_symbols(file_path: str) -> List[Dict[str, List[int]]]:
+def read_glyphs(file_path: str) -> List[Dict[str, List[int]]]:
     symbols_with_bitmaps: List[Dict[str, List[int]]] = []
 
     try:
@@ -28,8 +28,8 @@ def read_symbols(file_path: str) -> List[Dict[str, List[int]]]:
 def extract_bitmaps(
     image_path: str,
     symbols_with_bitmaps: List[Dict[str, List[int]]],
-    rect_width: int = 2,
-    rect_height: int = 4,
+    glyph_width: int,
+    glyph_height: int,
 ) -> None:
     try:
         img = Image.open(image_path).convert("RGB")
@@ -41,18 +41,18 @@ def extract_bitmaps(
 
         for row, symbol_entry in enumerate(symbols_with_bitmaps):
             bitmaps = []
-            for col in range(img_width // (rect_width + spacing_x)):
+            for col in range(img_width // (glyph_width + spacing_x)):
                 # Calculate the top-left corner of the rectangle
-                start_x = offset_x + col * (rect_width + spacing_x)
-                start_y = offset_y + row * (rect_height + spacing_y)
+                start_x = offset_x + col * (glyph_width + spacing_x)
+                start_y = offset_y + row * (glyph_height + spacing_y)
 
                 # Extract the bitmap for the rectangle
                 bitmap = 0
-                for y in range(rect_height):
-                    for x in range(rect_width):
+                for y in range(glyph_height):
+                    for x in range(glyph_width):
                         pixel = pixels[start_x + x, start_y + y]
                         if pixel == (255, 255, 255):
-                            bitmap |= 1 << (y * rect_width + x)
+                            bitmap |= 1 << (y * glyph_width + x)
                 bitmaps.append(bitmap)
 
             symbol_entry["bitmaps"] = bitmaps
@@ -96,8 +96,8 @@ def associate_symbols(symbols_with_bitmaps: List[Dict[str, List[int]]]) -> bool:
 def draw_bitmaps(
     symbols_with_bitmaps: List[Dict[str, List[int]]],
     output_path: str,
-    rect_width: int = 2,
-    rect_height: int = 4,
+    glyph_width: int,
+    glyph_height: int,
 ) -> None:
     ordered_symbols = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~∎АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя"
     symbols_map = {
@@ -108,8 +108,8 @@ def draw_bitmaps(
     symbols_per_row = 16
     num_rows = (len(ordered_symbols) + symbols_per_row - 1) // symbols_per_row
 
-    img_width = symbols_per_row * (rect_width + 1) + 1
-    img_height = num_rows * (rect_height + 1) + 1
+    img_width = symbols_per_row * (glyph_width + 1) + 1
+    img_height = num_rows * (glyph_height + 1) + 1
 
     img = Image.new("RGB", (img_width, img_height), config.BG_COLOR)
     draw = ImageDraw.Draw(img)
@@ -122,13 +122,13 @@ def draw_bitmaps(
         # Calculate position of the symbol
         row = index // symbols_per_row
         col = index % symbols_per_row
-        start_x = col * (rect_width + 1) + 1
-        start_y = row * (rect_height + 1) + 1
+        start_x = col * (glyph_width + 1) + 1
+        start_y = row * (glyph_height + 1) + 1
 
         # Draw the bitmap
-        for y in range(rect_height):
-            for x in range(rect_width):
-                if bitmap & (1 << (y * rect_width + x)):
+        for y in range(glyph_height):
+            for x in range(glyph_width):
+                if bitmap & (1 << (y * glyph_width + x)):
                     draw.point((start_x + x, start_y + y), fill="white")
                 else:
                     draw.point((start_x + x, start_y + y), fill="black")
@@ -137,21 +137,21 @@ def draw_bitmaps(
 
 
 if __name__ == "__main__":
-    X: int = config.GLYPH_WIDTH
-    Y: int = config.GLYPH_HEIGHT
+    glyph_width: int = config.GLYPH_WIDTH
+    glyph_height: int = config.GLYPH_HEIGHT
 
     character_frequencies_path: str = "./assets/characters/character_frequencies.txt"
-    char_map_img_path: str = f"./output/{X}x{Y}/{config.CHAR_MAP_IMG_NAME}"
-    output_bitmap_path: str = f"./output/{X}x{Y}/Pixiie {X}x{Y} Monospace bitmap.png"
+    char_map_img_path: str = f"./output/{glyph_width}x{glyph_height}/{config.CHAR_MAP_IMG_NAME}"
+    output_bitmap_path: str = f"./output/{glyph_width}x{glyph_height}/Pixiie {glyph_width}x{glyph_height} Monospace bitmap.png"
 
-    symbols = read_symbols(character_frequencies_path)
+    symbols = read_glyphs(character_frequencies_path)
 
-    extract_bitmaps(char_map_img_path, symbols)
+    extract_bitmaps(char_map_img_path, symbols, glyph_width, glyph_height)
 
     if associate_symbols(symbols):
         print(f"Successfully associated each symbol with a unique bitmap: {symbols}")
 
-        draw_bitmaps(symbols, output_bitmap_path)
+        draw_bitmaps(symbols, output_bitmap_path, glyph_width, glyph_height)
         print(f"Bitmap image saved to '{output_bitmap_path}'")
 
     else:

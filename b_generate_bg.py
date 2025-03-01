@@ -36,6 +36,9 @@ def yal_settings(X: int, Y: int) -> None:
     with open("./assets/yal_settings.json", "r", encoding="utf-8") as f:
         data = load(f)
 
+    data["glyph-width"] = config.GLYPH_WIDTH
+    data["glyph-height"] = config.GLYPH_HEIGHT
+
     data["font-name"] = font_name
     data["font-desc"] = config.FONT_DESC
 

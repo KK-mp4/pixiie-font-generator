@@ -2,8 +2,8 @@
   "eng_input_file_name": "t8.shakespeare.txt",
   "ru_input_file_name": "war_and_peace.txt",
   "char_map_img_name": "char_map.png",
-  "glyph_width": 2,
-  "glyph_height": 4,
+  "glyph_width": 3,
+  "glyph_height": 5,
   "bg_columns": 9,
   "bg_color": "#1f1f1f",
   "font_desc": "Smallest possible font for ASCII + Cyrillic characters"

@@ -15,7 +15,7 @@ python a_character_frequencies.py
 ```
 
 ## Step 2. Generating template
-On the second step I generated template for drawing future font. Glyphs will be ordered one by one vertically and on the horizontal direction I will draw various ways to draw each glyph. The best looking one on the left to the ugliest abstract one on the right. This will be important for WFC algorithm to find the solve. You can find how it looks like in [example folder](/example/2x4) in this reposotory.
+On the second step I generated template for drawing future font. Glyphs will be ordered one by one vertically and on the horizontal direction I will draw various ways to draw each glyph. The best looking one on the left to the ugliest abstract one on the right. This will be important for WFC algorithm to find the solve. You can find how it looks like in [example folder](/examples/2x4) in this reposotory.
 This step also generated a [YAL](https://yal.cc/tools/pixel-font/) settings file. It's a website that lets you preview and generate TTF / OTF fonts.
 
 ```bash
@@ -50,7 +50,7 @@ python d_wfc.py
 ```
 
 ## Step 5. Disabling taken glyps
-I added a helper function to hide glyphs that are already taken, this is helpful to narrow down search during process of drawing [char_map file](example/2x4/char_map.png).
+I added a helper function to hide glyphs that are already taken, this is helpful to narrow down search during process of drawing [char_map file](examples/2x4/char_map.png).
 
 ```bash
 # Hide taken glyphs
@@ -62,33 +62,33 @@ python a_character_frequencies.py
 </p>
 
 ## Step 6. Generating font file
-You can use [Yal pixel font generation tool](https://yal.cc/tools/pixel-font/) to generate actual TTF / OTF file. My tool generates [settings file](example/2x4/Pixiie%202x4%20Monospace%20settings.json) that you can import into Yal
+You can use [Yal pixel font generation tool](https://yal.cc/tools/pixel-font/) to generate actual TTF / OTF file. My tool generates [settings file](examples/2x4/Pixiie%202x4%20Monospace%20settings.json) that you can import into Yal
 
 ## Tips
-1. If your glyph is wider than it is tall, you may consider rotating it.  
+1. If your glyph is wider than it is tall, you may consider rotating it.
 `“Ю, ю”`
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/f0058dbd-06a6-480a-b1fb-b319125ba180" alt="Ю, ю">
 </p>
 
-3. Google alternative spelling styles.  
+3. Google alternative spelling styles.
 `"3”`
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c081462c-359f-4450-b4dd-a3132488b54f" alt="3">
 </p>
 
-4. If whole symbol doesn't fit you may consider leaving only recognisable half.  
-`"N, n"`  
-`"K, k"`  
+4. If whole symbol doesn't fit you may consider leaving only recognisable half.
+`"N, n"`
+`"K, k"`
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/85543f1a-174b-414c-9b38-1c4d809dfb03" alt="N, n, K, k">
 </p>
 
-5. Remember that smaller glyphs can be shifted around and don't need to be glued to one side.  
-`"i, i"`  
+5. Remember that smaller glyphs can be shifted around and don't need to be glued to one side.
+`"i, i"`
 `"c, c"`
 
 <p align="center">
