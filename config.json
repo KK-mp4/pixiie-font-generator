@@ -6,5 +6,5 @@
   "glyph_height": 5,
   "bg_columns": 9,
   "bg_color": "#1f1f1f",
-  "font_desc": "Smallest possible font for ASCII + Cyrillic characters"
+  "font_desc": "3x5 bitmap font for ASCII + Cyrillic characters with ascenders and descenders"
 }
